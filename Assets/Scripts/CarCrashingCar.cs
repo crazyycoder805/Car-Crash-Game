@@ -29,7 +29,7 @@ public class CarCrashingCar : MonoBehaviour
         {
             _isGrounded = true;
 
-            Invoke(nameof(Complete), 3f);
+            Invoke(nameof(Complete), 1f);
         }
     }
     void Complete()
@@ -62,6 +62,8 @@ public class CarCrashingCar : MonoBehaviour
                 RCC_Settings.Instance.autoReset = false;
                 RCC_Settings.Instance.useAutomaticClutch = false;
                 CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().KillEngine();
+                CarCrashingManager._link._brakeBtn.GetComponent<RCC_UIController>().pressing = true;
+
                 Complete();
 
             }
@@ -76,6 +78,8 @@ public class CarCrashingCar : MonoBehaviour
                 RCC_Settings.Instance.autoReset = false;
                 RCC_Settings.Instance.useAutomaticClutch = false;
                 CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().KillEngine();
+                CarCrashingManager._link._brakeBtn.GetComponent<RCC_UIController>().pressing = true;
+
                 Complete();
 
             }
