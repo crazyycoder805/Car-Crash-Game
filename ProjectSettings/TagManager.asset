@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Distance
   - LevelComplete
+  - NOT_FAIL
   layers:
   - Default
   - TransparentFX

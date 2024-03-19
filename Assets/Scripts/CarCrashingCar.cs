@@ -44,8 +44,11 @@ public class CarCrashingCar : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        float randomFloat = Random.Range(0.1f, 0.3f);
-        CarCrashingManager._link._carHealthBar.value -= randomFloat;
+        if (!collision.transform.CompareTag("NOT_FAIL"))
+        {
+            float randomFloat = Random.Range(0.1f, 0.3f);
+            CarCrashingManager._link._carHealthBar.value -= randomFloat;
+        }
 
         if (collision.transform.CompareTag("LevelComplete"))
         {
@@ -58,8 +61,7 @@ public class CarCrashingCar : MonoBehaviour
                 RCC_Settings.Instance.autoReverse = false;
                 RCC_Settings.Instance.autoReset = false;
                 RCC_Settings.Instance.useAutomaticClutch = false;
-                CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().StartEngine();
-                CarCrashingManager._link._brakeBtn.GetComponent<RCC_UIController>().pressing = true;
+                CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().KillEngine();
                 Complete();
 
             }
@@ -73,8 +75,7 @@ public class CarCrashingCar : MonoBehaviour
                 RCC_Settings.Instance.autoReverse = false;
                 RCC_Settings.Instance.autoReset = false;
                 RCC_Settings.Instance.useAutomaticClutch = false;
-                CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().StartEngine();
-                CarCrashingManager._link._brakeBtn.GetComponent<RCC_UIController>().pressing = true;
+                CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().KillEngine();
                 Complete();
 
             }
