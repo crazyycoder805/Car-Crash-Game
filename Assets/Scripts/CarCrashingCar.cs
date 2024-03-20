@@ -28,13 +28,28 @@ public class CarCrashingCar : MonoBehaviour
         if (_other.CompareTag("LevelComplete"))
         {
             _isGrounded = true;
+            CarCrashingManager._link._carHealthBar.value = 0f;
 
-            Invoke(nameof(Complete), 1f);
+            Invoke(nameof(Complete), 2f);
+        }
+        
+
+        if (!_isGrounded)
+        {
+            if (_other.CompareTag("Fail"))
+            {
+
+                CarCrashingManager._link._levelsPanel.SetActive(true);
+                CarCrashingManager._link._car.SetActive(false);
+                CarCrashingManager._link._carCanvas.SetActive(false);
+                CarCrashingManager._link._carCamera.SetActive(false);
+                CarCrashingManager._link._finalCamera.SetActive(true);
+                CarCrashingManager._link._failPanel.SetActive(true);
+            }
         }
     }
     void Complete()
     {
-        CarCrashingManager._link._carHealthBar.value = 0f;
 
         CarCrashingManager._link._carExpAnim.SetActive(true);
         //CarCrashingManager._link._carCamera.SetActive(false);
@@ -44,17 +59,22 @@ public class CarCrashingCar : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
 
-        if (!collision.transform.CompareTag("NOT_FAIL"))
+        //if (!collision.transform.CompareTag("NOT_FAIL"))
+        //{
+        //    float randomFloat = Random.Range(0.1f, 0.3f);
+        //    CarCrashingManager._link._carHealthBar.value -= randomFloat;
+        //}
+
+        if (collision.transform.CompareTag("CanCollide"))
         {
-            float randomFloat = Random.Range(0.1f, 0.3f);
-            CarCrashingManager._link._carHealthBar.value -= randomFloat;
+            CarCrashingManager._link._carHealthBar.value -= 0.1f;
+
         }
 
         if (collision.transform.CompareTag("LevelComplete"))
         {
-            _isGrounded = true;
-            if (CarCrashingManager._link._carHealthBar.value <= 0f)
-            {
+                _isGrounded = true;
+            
                 RCC_Settings.Instance.useAutomaticGear = false;
                 RCC_Settings.Instance.useAutomaticClutch = false;
                 RCC_Settings.Instance.runEngineAtAwake = false;
@@ -66,23 +86,7 @@ public class CarCrashingCar : MonoBehaviour
 
                 Complete();
 
-            }
-        } else
-        {
-            if (CarCrashingManager._link._carHealthBar.value <= 0f)
-            {
-                RCC_Settings.Instance.useAutomaticGear = false;
-                RCC_Settings.Instance.useAutomaticClutch = false;
-                RCC_Settings.Instance.runEngineAtAwake = false;
-                RCC_Settings.Instance.autoReverse = false;
-                RCC_Settings.Instance.autoReset = false;
-                RCC_Settings.Instance.useAutomaticClutch = false;
-                CarCrashingManager._link._car.GetComponent<RCC_CarControllerV3>().KillEngine();
-                CarCrashingManager._link._brakeBtn.GetComponent<RCC_UIController>().pressing = true;
-
-                Complete();
-
-            }
+            
         }
 
 

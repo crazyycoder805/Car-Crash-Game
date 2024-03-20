@@ -7,6 +7,8 @@ TagManager:
   - Distance
   - LevelComplete
   - NOT_FAIL
+  - CanCollide
+  - Fail
   layers:
   - Default
   - TransparentFX
