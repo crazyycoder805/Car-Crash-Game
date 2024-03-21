@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class CarCrashingOffroadLevelSelection : MonoBehaviour
 {
 	[SerializeField] List<Button> _levels = new List<Button>();
 	public string _pref;
+	public GameObject _modeSelectionPanel, _nextBtn, _offroadLevelSelectionPanel, _loadingPanel;
+	public Slider _loadingBar;
+	public void MainMenu()
+	{
+		_offroadLevelSelectionPanel.SetActive(false);
+		_modeSelectionPanel.SetActive(true);
 
-
+	}
+	void OnDisable()
+	{
+		_nextBtn.SetActive(false);
+	}
 	void Start()
 	{
 		if (PlayerPrefs.GetInt(_pref) == 0)
@@ -40,6 +51,27 @@ public class CarCrashingOffroadLevelSelection : MonoBehaviour
 
 	}
 
-	 
-    
+	public void LevelSelect(int _index)
+	{
+		PlayerPrefs.SetInt("OffroadLevel", _index);
+		_nextBtn.SetActive(true);
+
+	}
+
+	public void NextBtn()
+	{
+		_loadingPanel.SetActive(true);
+
+		StartCoroutine(LoadScreen());
+	}
+	public IEnumerator LoadScreen()
+	{
+		AsyncOperation _loadOperation = SceneManager.LoadSceneAsync(1);
+		while (!_loadOperation.isDone)
+		{
+			float _progress = Mathf.Clamp01(_loadOperation.progress / 0.9f);
+			_loadingBar.value = _progress;
+			yield return null;
+		}
+	}
 }
