@@ -227,11 +227,11 @@ MonoBehaviour:
     sidewaysExtremumValue: 2
     sidewaysAsymptoteSlip: 0.2
     sidewaysAsymptoteValue: 2
-  useAutomaticGear: 1
-  useAutomaticClutch: 1
-  runEngineAtAwake: 1
-  autoReverse: 1
-  autoReset: 1
+  useAutomaticGear: 0
+  useAutomaticClutch: 0
+  runEngineAtAwake: 0
+  autoReverse: 0
+  autoReset: 0
   contactParticles: {fileID: 193332, guid: 863b5201aede3aa438ac7d962625d663, type: 3}
   scratchParticles: {fileID: 193332, guid: 2ff0e422d9bf66249b14d124d7a2b3b0, type: 3}
   wheelDeflateParticles: {fileID: 5240681609208784007, guid: de4704e3426ad794c9166d4f75ab33c4, type: 3}
